@@ -8,8 +8,8 @@ from langchain.vectorstores import Chroma
 
 
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
-from llama_index.llms.huggingface import HuggingFaceLLM
-from llama_index.core.node_parser import SentenceSplitter
+# from llama_index.llms.huggingface import HuggingFaceLLM
+# from llama_index.core.node_parser import SentenceSplitter
 from openai import OpenAI
 
 from langchain_openai import ChatOpenAI
