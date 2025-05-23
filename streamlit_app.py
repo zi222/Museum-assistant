@@ -7,10 +7,19 @@ from langchain_core.runnables import RunnableBranch, RunnablePassthrough
 from get_vector import get_vectordb
 from model_to_llm import model_to_llm
 
-# 解决 "no running event loop"
-if not asyncio.get_event_loop().is_running():
-    asyncio.set_event_loop(asyncio.new_event_loop())
+from threading import Thread, current_thread
 
+# 定义线程局部事件循环存储
+event_loops = {}
+
+def get_thread_loop():
+    thread_id = current_thread().ident
+    if thread_id not in event_loops:
+        event_loops[thread_id] = asyncio.new_event_loop()
+    return event_loops[thread_id]
+
+# 设置当前线程的事件循环
+asyncio.set_event_loop(get_thread_loop())
 
 # OPENAI API 访问密钥配置
 GENSTUDIO_API_KEY = "sk-bvzk5vkwe4jxejv2"
