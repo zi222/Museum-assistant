@@ -8,7 +8,11 @@ from get_vector import get_vectordb
 from model_to_llm import model_to_llm
 
 from threading import Thread, current_thread
+import sqlite3
 
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 # 定义线程局部事件循环存储
 event_loops = {}
 
