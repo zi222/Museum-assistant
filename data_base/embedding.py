@@ -2,7 +2,9 @@ from langchain_community.document_loaders import PyMuPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from modelscope import snapshot_download
 import re
-from langchain.embeddings import HuggingFaceEmbeddings
+import os
+from langchain_community.embeddings import HuggingFaceEmbeddings
+
 from langchain.vectorstores import Chroma
 
 
@@ -27,6 +29,17 @@ from langchain_openai import ChatOpenAI
 PDF_PATH="./knowledge_db/national_treasure.pdf"
 DEFAULT_PERSIST_PATH = "./vector_db/chroma"
 
+def get_embedding_function():
+    local_model_dir = "././models/BAAI/bge-base-zh-v1.5"
+    remote_model_name = "BAAI/bge-base-zh-v1.5"
+
+    if os.path.exists(local_model_dir):
+        print(f"加载本地模型: {local_model_dir}")
+        embedding_function = HuggingFaceEmbeddings(model_name=local_model_dir)
+    else:
+        print(f"本地模型不存在，尝试加载远程模型: {remote_model_name}")
+        embedding_function = HuggingFaceEmbeddings(model_name=remote_model_name)
+    return embedding_function
 
 
 # 数据处理与索引构建模块
@@ -54,7 +67,7 @@ def create_db(files=PDF_PATH, persist_directory=DEFAULT_PERSIST_PATH):
     # split_docs = text_splitter.split_text(pdf_page.page_content)  #split_text方法应该接受一个字符串参数，然后将这个字符串分割成多个块，返回字符串列表。
     split_docs = text_splitter.split_documents(pdf_pages)   #处理整个文档列表
 
-    embedding = HuggingFaceEmbeddings(model_name="././models/BAAI/bge-base-zh-v1.5")
+    embedding = get_embedding_function()
     vector_db = Chroma.from_documents(documents=split_docs, embedding=embedding, persist_directory=persist_directory)
     #vector_db.persist()
     return vector_db
@@ -72,7 +85,7 @@ def load_knowledge_db(path):
 
     vector_db =  Chroma(
         persist_directory=path,
-        embedding_function = HuggingFaceEmbeddings(model_name="././models/BAAI/bge-base-zh-v1.5")
+        embedding_function = get_embedding_function()
     )
     return vector_db
 
