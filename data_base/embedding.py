@@ -54,7 +54,7 @@ def create_db(files=PDF_PATH, persist_directory=DEFAULT_PERSIST_PATH):
     # split_docs = text_splitter.split_text(pdf_page.page_content)  #split_text方法应该接受一个字符串参数，然后将这个字符串分割成多个块，返回字符串列表。
     split_docs = text_splitter.split_documents(pdf_pages)   #处理整个文档列表
 
-    embedding = HuggingFaceEmbeddings(model_name="BAAI/bge-base-zh-v1.5")
+    embedding = HuggingFaceEmbeddings(model_name="././models/BAAI/bge-base-zh-v1.5")
     vector_db = Chroma.from_documents(documents=split_docs, embedding=embedding, persist_directory=persist_directory)
     #vector_db.persist()
     return vector_db
@@ -72,7 +72,7 @@ def load_knowledge_db(path):
 
     vector_db =  Chroma(
         persist_directory=path,
-        embedding_function = HuggingFaceEmbeddings(model_name="BAAI/bge-base-zh-v1.5")
+        embedding_function = HuggingFaceEmbeddings(model_name="././models/BAAI/bge-base-zh-v1.5")
     )
     return vector_db
 

@@ -1,4 +1,5 @@
 import streamlit as st
+import asyncio
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnableBranch, RunnablePassthrough
@@ -6,6 +7,9 @@ from langchain_core.runnables import RunnableBranch, RunnablePassthrough
 from get_vector import get_vectordb
 from model_to_llm import model_to_llm
 
+# 解决 "no running event loop"
+if not asyncio.get_event_loop().is_running():
+    asyncio.set_event_loop(asyncio.new_event_loop())
 
 
 # OPENAI API 访问密钥配置
