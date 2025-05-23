@@ -1,4 +1,4 @@
-name: /root/miniconda3/envs/llm-universe
+name: llm-universe
 channels:
   - https://repo.anaconda.com/pkgs/main
   - defaults
