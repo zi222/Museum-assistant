@@ -13,7 +13,6 @@ dependencies:
   - libstdcxx-ng=11.2.0=h1234567_1
   - ncurses=6.4=h6a678d5_0
   - openssl=1.1.1w=h7f8727e_0
-  - pip=25.1=pyhc872135_2
   - python=3.9.0=hdb3f193_2
   - readline=8.2=h5eee18b_0
   - setuptools=78.1.1=py39h06a4308_0
@@ -103,7 +102,7 @@ dependencies:
       - langchain==0.3.25
       - langchain-chroma==0.1.4
       - langchain-community==0.3.24
-      - langchain-core==0.3.61
+      - langchain-core==0.3.59
       - langchain-openai==0.3.16
       - langchain-text-splitters==0.3.8
       - langdetect==1.0.9
@@ -175,6 +174,7 @@ dependencies:
       - packaging==24.2
       - pandas==2.2.3
       - pillow==11.2.1
+      - pip==25.1.1
       - platformdirs==4.3.8
       - posthog==4.0.1
       - prompt-toolkit==3.0.51
